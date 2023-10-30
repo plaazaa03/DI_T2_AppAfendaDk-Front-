@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.mvc.View?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<View fx:id="inicio" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ieslosmontecillos.InicioController">
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="AppAgendaDK">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#iniciaApp" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@Agenda1.jpg" />
+                  </ImageView>
+               </graphic>
+            </Label>
+            <ImageView fitHeight="428.0" fitWidth="291.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Agenda1.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </center>
+</View>
