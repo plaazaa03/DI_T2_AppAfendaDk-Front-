@@ -17,6 +17,8 @@ public class InicioController {
     private ObservableList olProv;
     private ObservableList olPers;
     private Pane rootMain = new Pane();
+    private Persona personaSeleccionada;
+
 
     @FXML
     public void iniciaApp(MouseEvent mouseEvent){

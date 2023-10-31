@@ -10,24 +10,21 @@ import javafx.collections.ObservableList;
 import javax.json.JsonObject;
 public class DataUtil {
 
-    private ObservableList<Provincia> olProvincias =
-            FXCollections.observableArrayList();
-    private ObservableList<Persona> olPersonas =
-            FXCollections.observableArrayList();
+    private ObservableList<Provincia> olProvincias = FXCollections.observableArrayList();
+    private ObservableList<Persona> olPersonas = FXCollections.observableArrayList();
     public void obtenerTodasProvincias(){
         System.out.println("Se están solicitando las provincias...");
         RestClient restClient = RestClient.create()
                 .method("GET")
                 .host("http://localhost:8080")
                 .path("/api/v1/PROVINCIA");
-        GluonObservableList<Provincia> provincias =
-                DataProvider.retrieveList(restClient.createListDataReader(Provincia.class));
+        GluonObservableList<Provincia> provincias = DataProvider.retrieveList(restClient.createListDataReader(Provincia.class));
         provincias.addListener(new ListChangeListener<Provincia>() {
             @Override
-            public void onChanged(javafx.collections.ListChangeListener.Change<?
-                    extends Provincia> c) {
+            public void onChanged(javafx.collections.ListChangeListener.Change<? extends Provincia> c) {
                 if(c.next()){
                     olProvincias.add(c.getList().get(c.getFrom()));
+                    System.out.println("Lista provincias: " + olProvincias.get(c.getFrom()).getCodigo() + "-" + olProvincias.get(c.getFrom()).getNombre());
                 }
             }
         });
@@ -42,14 +39,13 @@ public class DataUtil {
                 .method("GET")
                 .host("http://localhost:8080")
                 .path("/api/v1/PERSONA");
-        GluonObservableList<Persona> personas =
-                DataProvider.retrieveList(restClient.createListDataReader(Persona.class));
+        GluonObservableList<Persona> personas = DataProvider.retrieveList(restClient.createListDataReader(Persona.class));
         personas.addListener(new ListChangeListener<Persona>() {
             @Override
-            public void onChanged(javafx.collections.ListChangeListener.Change<?
-                    extends Persona> c) {
+            public void onChanged(javafx.collections.ListChangeListener.Change<? extends Persona> c) {
                 if(c.next()){
                     olPersonas.add(c.getList().get(c.getFrom()));
+                    System.out.println("Lista personas: " + olPersonas.get(c.getFrom()).getNombre() + "-" + olPersonas.get(c.getFrom()).getApellidos());
                 }
             }
         });
@@ -64,8 +60,7 @@ public class DataUtil {
                 .method("DELETE")
                 .host("http://localhost:8080")
                 .path("/api/v1/PERSONA/"+idPersona);
-        GluonObservableList<Persona> personas =
-                DataProvider.retrieveList(restClient.createListDataReader(Persona.class));
+        GluonObservableList<Persona> personas = DataProvider.retrieveList(restClient.createListDataReader(Persona.class));
     }
     public void addPersona(Persona persona){
         int idPersona = persona.getId().intValue();
@@ -80,8 +75,7 @@ public class DataUtil {
                 .path("/api/v1/PERSONA")
                 .dataString(dataBody)
                 .contentType("application/json");
-        GluonObservableObject<Persona> personaNueva =
-                DataProvider.retrieveObject(restClient.createObjectDataReader(Persona.class));
+        GluonObservableObject<Persona> personaNueva = DataProvider.retrieveObject(restClient.createObjectDataReader(Persona.class));
     }
     public void actualizarPersona(Persona persona){
         int idPersona = persona.getId().intValue();
@@ -96,8 +90,7 @@ public class DataUtil {
                 .path("/api/v1/PERSONA/"+idPersona)
                 .dataString(dataBody)
                 .contentType("application/json");
-        GluonObservableObject<Persona> personaActualizada =
-                DataProvider.retrieveObject(restClient.createObjectDataReader(Persona.class));
+        GluonObservableObject<Persona> personaActualizada = DataProvider.retrieveObject(restClient.createObjectDataReader(Persona.class));
     }
     public Persona findPersonaByID(Integer id){
         int idPersona = id.intValue();
@@ -105,8 +98,7 @@ public class DataUtil {
                 .method("GET")
                 .host("http://localhost:8080")
                 .path("/api/v1/PERSONA/"+idPersona);
-        GluonObservableObject<Persona> persona =
-                DataProvider.retrieveObject(restClient.createObjectDataReader(Persona.class));
+        GluonObservableObject<Persona> persona = DataProvider.retrieveObject(restClient.createObjectDataReader(Persona.class));
         persona.initializedProperty().addListener((obs, ov, nv) -> {
             if (nv && persona.get() != null) {
                 System.out.println("Recuperando persona seleccionada de la BD "+persona.get().getNombre()+" "+persona.get().getApellidos());
@@ -120,8 +112,7 @@ public class DataUtil {
                 .method("GET")
                 .host("http://localhost:8080")
                 .path("/api/v1/PROVINCIA/"+idProvincia);
-        GluonObservableObject<Provincia> provincia =
-                DataProvider.retrieveObject(restClient.createObjectDataReader(Provincia.class)
+        GluonObservableObject<Provincia> provincia = DataProvider.retrieveObject(restClient.createObjectDataReader(Provincia.class)
                 );
         provincia.initializedProperty().addListener((obs, ov, nv) -> {
             if (nv && provincia.get() != null) {
