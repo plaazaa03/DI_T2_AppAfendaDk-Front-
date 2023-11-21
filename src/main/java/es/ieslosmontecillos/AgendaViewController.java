@@ -1,30 +1,39 @@
 package es.ieslosmontecillos;
 
+
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AgendaViewController implements Initializable {
+
+
     private DataUtil dataUtil;
-    private ObservableList<Provincia> olProvincias;
-    private ObservableList<Persona> olPersonas;
-
-
+    private ObservableList<Provincia> olProvincias =
+            FXCollections.observableArrayList();
+    private ObservableList<Persona> olPersonas =
+            FXCollections.observableArrayList();
     @FXML
     private TableView<Persona> tableViewAgenda;
     @FXML
     private TableColumn<Persona,String> columnNombre;
     @FXML
-    private TableColumn<Persona,String> columnApellidos;
+    private TableColumn<Persona,String> columnApellido;
     @FXML
     private TableColumn<Persona,String> columnEmail;
     @FXML
@@ -32,12 +41,47 @@ public class AgendaViewController implements Initializable {
     @FXML
     private TextField textFieldNombre;
     @FXML
-    private TextField textFieldApellidos;
+    private TextField textFieldApellido;
+
+    private Persona personaSeleccionada;
     @FXML
-    private Button textFieldNombre;
 
+    private Pane rootAgendaView;
 
-    public void setDataUtil(DataUtil dataUtil) { this.dataUtil = dataUtil; }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        columnApellido.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
+        columnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        columnProvincia.setCellValueFactory(
+                cellData->{
+                    SimpleStringProperty property=new SimpleStringProperty();
+                    if (cellData.getValue().getProvincia().getId() != 0){
+                        property.setValue(cellData.getValue().getProvincia().getNombre());
+                    }
+                    return property;
+                });
+        tableViewAgenda.getSelectionModel().selectedItemProperty().addListener(
+                (observable,oldValue,newValue)->{
+                    personaSeleccionada=newValue;
+                    if (personaSeleccionada != null){
+                        textFieldNombre.setText(personaSeleccionada.getNombre());
+                        textFieldApellido.setText(personaSeleccionada.getApellidos());
+                    } else {
+                        textFieldNombre.setText("");
+                        textFieldApellido.setText("");
+                    }
+                });
+
+    }
+
+    public void setRootAgendaView(Pane rootAgendaView){
+        this.rootAgendaView = rootAgendaView;
+    }
+
+    public void setDataUtil(DataUtil dataUtil) {
+        this.dataUtil = dataUtil;
+    }
 
     public void setOlProvincias(ObservableList<Provincia> olProvincias) {
         this.olProvincias = olProvincias;
@@ -47,26 +91,91 @@ public class AgendaViewController implements Initializable {
         this.olPersonas = olPersonas;
     }
 
-    public void cargarTodasPersonas(){tableViewAgenda.setItems(FXCollections.observableArrayList(olPersonas));}
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        columnApellidos.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
-        columnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        columnProvincia.setCellValueFactory(new PropertyValueFactory<>("provincia"));
-        columnProvincia.setCellValueFactory(
-                cellData->{
-                    SimpleStringProperty property=new SimpleStringProperty();
-                    if (cellData.getValue().getProvincia()!= null){
-                        property.setValue(cellData.getValue().getProvincia().getNombre());
-                    }
-                    return property;
-                });
+
+    public void cargarTodasPersonas() {
+        tableViewAgenda.setItems(FXCollections.observableArrayList(olPersonas));
     }
 
-    @FXML
     public void onActionButtonGuardar(ActionEvent actionEvent) {
+        if (personaSeleccionada != null) {
+            personaSeleccionada.setNombre(textFieldNombre.getText());
+            personaSeleccionada.setApellidos(textFieldApellido.getText());
+            dataUtil.actualizarPersona(personaSeleccionada);
+            int numFilaSeleccionada = tableViewAgenda.getSelectionModel().getSelectedIndex();
+            tableViewAgenda.getItems().set(numFilaSeleccionada, personaSeleccionada);
+            TablePosition pos = new TablePosition(tableViewAgenda, numFilaSeleccionada, null);
+            tableViewAgenda.getFocusModel().focus(pos);
+            tableViewAgenda.requestFocus();
+        }
+    }
 
+    public void onActionButtonNuevo(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new
+                    FXMLLoader(getClass().getResource("fxml/PersonaDetalleView.fxml"));
+            Parent rootDetalleView = fxmlLoader.load();
+
+            PersonaDetalleViewController personaDetalleViewController =
+                    (PersonaDetalleViewController) fxmlLoader.getController();
+            personaDetalleViewController.setRootAgendaView(rootAgendaView);
+            personaDetalleViewController.setTableViewPrevio(tableViewAgenda);
+            personaDetalleViewController.setDataUtil(dataUtil);
+            personaSeleccionada = new Persona();
+            personaDetalleViewController.setPersona(personaSeleccionada,true);
+
+            rootAgendaView.setVisible(false);
+
+            StackPane rootMain =
+                    (StackPane) rootAgendaView.getScene().getRoot();
+            rootMain.getChildren().add(rootDetalleView);
+        } catch (IOException ex){
+            System.out.println("Error volcado"+ex);}
+    }
+
+
+    public void onAcctionButtonEditar(ActionEvent event) {
+        try{
+            FXMLLoader fxmlLoader = new
+                    FXMLLoader(getClass().getResource("fxml/PersonaDetalleView.fxml"));
+            Parent rootDetalleView=fxmlLoader.load();
+
+            PersonaDetalleViewController personaDetalleViewController =
+                    (PersonaDetalleViewController) fxmlLoader.getController();
+            personaDetalleViewController.setRootAgendaView(rootAgendaView);
+            personaDetalleViewController.setTableViewPrevio(tableViewAgenda);
+            personaDetalleViewController.setDataUtil(dataUtil);
+            personaDetalleViewController.setPersona(personaSeleccionada,false);
+            personaDetalleViewController.mostrarDatos();
+
+            rootAgendaView.setVisible(false);
+
+            StackPane rootMain =
+                    (StackPane) rootAgendaView.getScene().getRoot();
+            rootMain.getChildren().add(rootDetalleView);
+        } catch (IOException ex){
+            System.out.println("Error volcado"+ex);}
+    }
+
+    public void onAcctionButtonSuprimir(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar");
+        alert.setHeaderText("¿Desea suprimir el siguiente registro?");
+        alert.setContentText(personaSeleccionada.getNombre() + " "
+                + personaSeleccionada.getApellidos());
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            dataUtil.eliminarPersona(personaSeleccionada);
+            tableViewAgenda.getItems().remove(personaSeleccionada);
+            tableViewAgenda.getFocusModel().focus(null);
+            tableViewAgenda.requestFocus();
+
+        } else {
+            int numFilaSeleccionada= tableViewAgenda.getSelectionModel().getSelectedIndex();
+            tableViewAgenda.getItems().set(numFilaSeleccionada,personaSeleccionada);
+            TablePosition pos = new TablePosition(tableViewAgenda, numFilaSeleccionada,null);
+            tableViewAgenda.getFocusModel().focus(pos);
+            tableViewAgenda.requestFocus();
+        }
     }
 }

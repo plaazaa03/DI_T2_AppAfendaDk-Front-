@@ -10,21 +10,23 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<View prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ieslosmontecillos.AgendaViewController">
-   <center>
+<View fx:id="rootAgendaView" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ieslosmontecillos.AgendaViewController">
+
+    <center>
       <TableView fx:id="tableViewAgenda" prefHeight="540.0" prefWidth="726.0" BorderPane.alignment="CENTER">
          <columns>
             <TableColumn id="columnNombre" fx:id="columnNombre" prefWidth="139.0" text="Nombre" />
-            <TableColumn id="columnApellidos" fx:id="columnApellidos" prefWidth="175.0" text="Apellidos" />
+            <TableColumn id="columnApellido" fx:id="columnApellido" prefWidth="175.0" text="Apellido" />
             <TableColumn id="columnEmail" fx:id="columnEmail" prefWidth="121.0" text="eMail" />
             <TableColumn id="columnProvincia" fx:id="columnProvincia" prefWidth="290.0" text="Provincias" />
          </columns>
       </TableView>
    </center>
    <bottom>
-      <GridPane BorderPane.alignment="CENTER">
+      <GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="91.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="509.0" minWidth="10.0" prefWidth="509.0" />
@@ -37,13 +39,25 @@
          <children>
             <Label contentDisplay="CENTER" text="Nombre:" />
             <Label text="Apellidos:" GridPane.rowIndex="1" />
-            <Button fx:id="textFieldNombre" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionButtonGuardar" prefHeight="30.0" prefWidth="90.0" text="Guardar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionButtonGuardar" prefHeight="30.0" prefWidth="90.0" text="Guardar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldNombre" GridPane.columnIndex="1" />
+            <TextField fx:id="textFieldApellidos" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </bottom>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
+   <top>
+      <HBox fx:id="root" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="buttonNuevo" mnemonicParsing="false" onAction="#onActionButtonNuevo" text="Nuevo" />
+            <Button fx:id="buttonEditar" mnemonicParsing="false" onAction="#onAcctionButtonEditar" text="Editar" />
+            <Button fx:id="buttonSuprimir" mnemonicParsing="false" onAction="#onAcctionButtonSuprimir" text="Suprimir" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+   </top>
 </View>

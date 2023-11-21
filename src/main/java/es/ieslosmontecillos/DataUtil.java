@@ -12,6 +12,7 @@ public class DataUtil {
 
     private ObservableList<Provincia> olProvincias = FXCollections.observableArrayList();
     private ObservableList<Persona> olPersonas = FXCollections.observableArrayList();
+
     public void obtenerTodasProvincias(){
         System.out.println("Se están solicitando las provincias...");
         RestClient restClient = RestClient.create()
@@ -24,7 +25,7 @@ public class DataUtil {
             public void onChanged(javafx.collections.ListChangeListener.Change<? extends Provincia> c) {
                 if(c.next()){
                     olProvincias.add(c.getList().get(c.getFrom()));
-                    System.out.println("Lista provincias: " + olProvincias.get(c.getFrom()).getCodigo() + "-" + olProvincias.get(c.getFrom()).getNombre());
+                    System.out.println("Lista de Provincias: " + olProvincias.get(c.getFrom()).getCodigo() + " - " + olProvincias.get(c.getFrom()).getNombre());
                 }
             }
         });

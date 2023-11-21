@@ -10,14 +10,14 @@
 
 <View fx:id="inicio" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ieslosmontecillos.InicioController">
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0"  BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" text="AppAgenda" textAlignment="CENTER">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <ImageView fitHeight="243.0" fitWidth="310.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#iniciaApp">
+            <ImageView fitHeight="243.0" fitWidth="310.0" onMouseClicked="#iniciaApp" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Agenda1.jpg" />
                </image>
