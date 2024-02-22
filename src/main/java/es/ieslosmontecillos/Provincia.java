@@ -8,7 +8,7 @@ public class Provincia {
     private final IntegerProperty id = new SimpleIntegerProperty();
     private final StringProperty codigo = new SimpleStringProperty();
     private final StringProperty nombre = new SimpleStringProperty();
-    //campo id
+    //campo id.
     @XmlElement(name = "id")
     public Integer getId() {
         return id.get();

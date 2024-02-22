@@ -146,7 +146,7 @@ public class Persona
         }
     }
 
-    //campo Jubilado
+    //campo Jubilado.
     @XmlElement(name = "jubilado")
     public Integer getJubilado() {
         return jubilado.get();

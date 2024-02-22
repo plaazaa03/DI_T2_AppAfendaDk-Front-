@@ -73,7 +73,7 @@ public class PersonaDetalleViewController
 
     public void setTableViewPrevio(TableView tableViewPrevio) {this.tableViewPrevio=tableViewPrevio;}
 
-    //El booleano hace referencia si la persona es nueva o no
+    //El booleano hace referencia si la persona es nueva o no.
     public void setPersona(Persona persona, Boolean nuevaPersona)
     {
         if (!nuevaPersona)

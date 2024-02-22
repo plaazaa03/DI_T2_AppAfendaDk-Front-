@@ -15,7 +15,7 @@ public class InicioView {
             inicioController = loader.getController();
             return view;
         } catch (IOException e) {
-            System.out.println("IOException: " + e);
+            System.out.println("IOExceeption: " + e);
             return new View();
         }
     }

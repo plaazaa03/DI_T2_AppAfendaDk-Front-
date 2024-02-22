@@ -23,7 +23,7 @@ public class AppAgendaDK extends Application {
         inicioController = inicioView.getInicioController();
         inicioController.setRootMain(rootMain);
 
-        // Solicitamos los datos a los servicios de dataUtil
+        // Solicitamos los datos a los servicios de dataUtil.
         dataUtil = new DataUtil();
         dataUtil.obtenerTodasProvincias();
         ObservableList<Provincia> olProv = dataUtil.getOlProvincias();

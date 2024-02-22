@@ -151,7 +151,7 @@ public class AgendaViewController implements Initializable
     {
         try
         {
-            // Cargar la vista de detalle
+            // Cargar la vista de detalle.
             FXMLLoader fxmlLoader = new
                     FXMLLoader(getClass().getResource("fxml/PersonaDetalleView.fxml"));
             Parent rootDetalleView=fxmlLoader.load();
