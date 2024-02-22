@@ -1,12 +1,15 @@
 package es.ieslosmontecillos;
+
 import javafx.beans.property.*;
 
 import javax.xml.bind.annotation.XmlElement;
-public class Persona {
+
+public class Persona
+{
     private final IntegerProperty id = new SimpleIntegerProperty();
     private final StringProperty nombre = new SimpleStringProperty();
     private final StringProperty apellidos = new SimpleStringProperty();
-    private final ObjectProperty provincia = new SimpleObjectProperty();
+    private Provincia provincia = new Provincia();
     private final StringProperty telefono = new SimpleStringProperty();
     private final StringProperty email = new SimpleStringProperty();
     private StringProperty fechaNacimiento = new SimpleStringProperty();
@@ -15,6 +18,8 @@ public class Persona {
     private final StringProperty estadoCivil = new SimpleStringProperty();
     private final IntegerProperty jubilado = new SimpleIntegerProperty();
     private final StringProperty foto = new SimpleStringProperty();
+
+
     //campo id
     @XmlElement(name = "id")
     public Integer getId() {
@@ -26,6 +31,7 @@ public class Persona {
     public void setId(Integer id) {
         this.id.set(id);
     }
+
     //campo nombre
     @XmlElement(name = "nombre")
     public String getNombre() {
@@ -59,6 +65,7 @@ public class Persona {
     public void setTelefono(String telefono) {
         this.telefono.set(telefono);
     }
+
     //campo email
     @XmlElement(name = "email")
     public String getEmail() {
@@ -70,17 +77,17 @@ public class Persona {
     public void setEmail(String email) {
         this.email.set(email);
     }
+
     //campo provincia
     @XmlElement(name = "provincia")
     public Provincia getProvincia() {
-        return (Provincia) provincia.get();
-    }
-    public ObjectProperty provinciaProperty() {
         return provincia;
     }
-    public void setProvincia(Provincia provincia) {
-        this.provincia.set(provincia);
+    public Provincia provinciaProperty() {
+        return provincia;
     }
+    public void setProvincia(Provincia provincia) {this.provincia = provincia;}
+
     //campo Fecha Nacimiento
     @XmlElement(name = "fechaNacimiento")
     public String getFechaNacimiento() {
@@ -92,6 +99,7 @@ public class Persona {
     public StringProperty fechaNacimientoProperty() {
         return fechaNacimiento;
     }
+
     //campo Num Hijos
     @XmlElement(name = "numHijos")
     public Integer getNumHijos() {
@@ -109,6 +117,7 @@ public class Persona {
             this.numHijos.set(0);
         }
     }
+
     //campo Estado Civil
     @XmlElement(name = "estadoCivil")
     public String getEstadoCivil() {
@@ -120,6 +129,7 @@ public class Persona {
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil.set(estadoCivil);
     }
+
     //campo Salario
     @XmlElement(name = "salario")
     public Double getSalario() {
@@ -135,6 +145,7 @@ public class Persona {
             this.salario.set(0.0);
         }
     }
+
     //campo Jubilado
     @XmlElement(name = "jubilado")
     public Integer getJubilado() {
@@ -146,6 +157,7 @@ public class Persona {
     public void setJubilado(Integer jubilado) {
         this.jubilado.set(jubilado);
     }
+
     //campo Foto
     @XmlElement(name = "foto")
     public String getFoto() {
@@ -158,3 +170,5 @@ public class Persona {
         this.foto.set(foto);
     }
 }
+
+
