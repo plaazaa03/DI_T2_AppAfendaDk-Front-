@@ -15,6 +15,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<!-- -->
+
 <AnchorPane fx:id="rootPersonaDetalleView" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ieslosmontecillos.PersonaDetalleViewController">
     <children>
         <GridPane alignment="CENTER" hgap="20.0" prefHeight="600.0" prefWidth="700.0">
@@ -54,7 +56,7 @@
                 <Button mnemonicParsing="false" onAction="#onActionButtonGuardar" text="Guardar" GridPane.columnIndex="2" />
                 <Button mnemonicParsing="false" onAction="#onActionButtonCancelar" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                 <DatePicker fx:id="datePickerFechaNacimiento" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <TextField fx:id="textFieldNombre" alignment="CENTER" GridPane.columnIndex="1" />
+                <TextField fx:id="textFieldNombre" GridPane.columnIndex="1" />
                 <TextField fx:id="textFieldApellidos" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="textFieldTelefono" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="textFieldEmail" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -72,7 +74,8 @@
                 <HBox prefHeight="86.0" prefWidth="372.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
                     <children>
                         <ImageView fx:id="imageViewFoto" fitHeight="53.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button mnemonicParsing="false" text="Examinar" />
+                        <Button mnemonicParsing="false" text="Examinar" onAction="#onActionButtonExaminar" />
+                        <Button mnemonicParsing="false" onAction="#onActionSuprimirFoto" text="Suprimir"/>
                     </children>
                 </HBox>
             </children>
