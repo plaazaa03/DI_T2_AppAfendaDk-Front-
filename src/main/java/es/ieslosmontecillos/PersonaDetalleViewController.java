@@ -226,39 +226,6 @@ public class PersonaDetalleViewController
     }
 
     @javafx.fxml.FXML
-    private void onActionSuprimirFoto(ActionEvent event)
-    {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar supresión de imagen");
-        alert.setHeaderText("¿Desea SUPRIMIR el archivo asociado a la imagen,\n"+ "quitar la foto pero MANTENER el archivo, \no CANCELAR la operación?");
-        alert.setContentText("Elija la opción deseada:");
-        ButtonType buttonTypeEliminar = new ButtonType("Suprimir");
-        ButtonType buttonTypeMantener = new ButtonType("Mantener");
-        ButtonType buttonTypeCancel = new ButtonType("Cancelar",
-                ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(buttonTypeEliminar, buttonTypeMantener,
-                buttonTypeCancel);
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.get() == buttonTypeEliminar)
-        {
-            String imageFileName = persona.getFoto();
-            File file = new File(CARPETA_FOTOS + "/" + imageFileName);
-
-            if (file.exists())
-                file.delete();
-
-            persona.setFoto(null);
-            imageViewFoto.setImage(null);
-        }
-        else if (result.get() == buttonTypeMantener)
-        {
-            persona.setFoto(null);
-            imageViewFoto.setImage(null);
-        }
-    }
-
-    @javafx.fxml.FXML
     private void onActionButtonGuardar(ActionEvent event) throws ParseException
     {
         //Actualizar las propiedades del objeto Persona obteniendo la información que se encuentre en cada
