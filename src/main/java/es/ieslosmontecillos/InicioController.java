@@ -2,20 +2,29 @@ package es.ieslosmontecillos;
 
 import com.gluonhq.charm.glisten.mvc.View;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InicioController {
-    @FXML
-    private View inicio;
-    @FXML
-    private Label label;
+    public View inicio;
+    public AnchorPane login;
+    public TextField txtUsuario;
+    public TextField txtpassword;
+    public Button botonEnter;
+    public Button buttonExit;
     private DataUtil dataUtil;
     private ObservableList olProv;
     private ObservableList olPers;
@@ -23,27 +32,8 @@ public class InicioController {
     private Pane getRootMain(){
         return rootMain;
     }
-
-
-
-    @Deprecated
-    public void iniciaApp(MouseEvent mouseEvent){
-        try{
-            FXMLLoader fxmlLoader = new
-                    FXMLLoader(getClass().getResource("fxml/AgendaView.fxml"));
-            Pane rootAgendaView = fxmlLoader.load();
-            rootMain.getChildren().add(rootAgendaView);
-            AgendaViewController agendaViewController =
-                    fxmlLoader.getController();
-            agendaViewController.setDataUtil(dataUtil);
-            agendaViewController.setOlProvincias(olProv);
-            agendaViewController.setOlPersonas(olPers);
-            agendaViewController.cargarTodasPersonas();
-            inicio.setVisible(false);
-        } catch (IOException e) {
-            System.out.println("IOException: " + e);
-        }
-    }
+    // Probar el funcionamiento sin bd
+    private List<Usuario> usuarios = new ArrayList<>();
 
     public void setRootMain(Pane rootMain) {
         this.rootMain = rootMain;
@@ -57,5 +47,77 @@ public class InicioController {
     public void setOlPers(ObservableList olPers) {
         this.olPers = olPers;
     }
-}
+/*
+    public void onActionButtonEnter(ActionEvent event) {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/AgendaView.fxml"));
+            Pane rootAgendaView = fxmlLoader.load();
+            rootMain.getChildren().add(rootAgendaView);
+            AgendaViewController agendaViewController = fxmlLoader.getController();
+            agendaViewController.setDataUtil(dataUtil);
+            agendaViewController.setOlProvincias(olProv);
+            agendaViewController.setOlPersonas(olPers);
+            agendaViewController.cargarTodasPersonas();
+            inicio.setVisible(false);
+        } catch (IOException e) {
+            System.out.println("IOException: " + e);
+        }
+    }
+
+    public void onActionButtonExit(ActionEvent event) {
+
+    }
+}*/
 /**/
+
+
+    public InicioController() {
+        // añadir un usuario de prueba
+        usuarios.add(new Usuario("usuario", "usuario"));
+    }
+
+    //Al pulsar en Enter
+    public void onActionButtonEnter(ActionEvent event) {
+        String nombreUsuario = txtUsuario.getText();
+        String contraseña = txtpassword.getText();
+
+        // Verifica si las credenciales ingresadas son válidas
+        if (validarCredenciales(nombreUsuario, contraseña)) {
+            // Si las credenciales son correctas, cargamos la siguiente vista
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/AgendaView.fxml"));
+                Pane rootAgendaView = fxmlLoader.load();
+                rootMain.getChildren().add(rootAgendaView);
+                AgendaViewController agendaViewController = fxmlLoader.getController();
+                agendaViewController.setDataUtil(dataUtil);
+                agendaViewController.setOlProvincias(olProv);
+                agendaViewController.setOlPersonas(olPers);
+                agendaViewController.cargarTodasPersonas();
+                inicio.setVisible(false);
+            } catch (IOException e) {
+                System.out.println("IOException: " + e);
+            }
+        } else {
+            // Mostrar error cuando no coincida el usuario ni la contraseña
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Fallo al introducir Usuario o Contraseña");
+            alert.setHeaderText(null);
+            alert.setContentText("Compruebe su nombre de usuario y contraseña.");
+            alert.showAndWait();
+        }
+    }
+
+    // Validar que el usuario y contraseña son correctos
+    private boolean validarCredenciales(String nombreUsuario, String contraseña) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getNombreUsuario().equals(nombreUsuario) && usuario.getContraseña().equals(contraseña)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Al pulsar en exit
+    public void onActionButtonExit(ActionEvent event) {
+    }
+}

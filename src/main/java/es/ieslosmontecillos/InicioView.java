@@ -9,8 +9,7 @@ public class InicioView {
 
     public View getView() {
         try {
-            FXMLLoader loader = new
-                    FXMLLoader(InicioView.class.getResource("fxml/inicio.fxml"));
+            FXMLLoader loader = new FXMLLoader(InicioView.class.getResource("fxml/inicio.fxml"));
             View view = loader.load();
             inicioController = loader.getController();
             return view;
