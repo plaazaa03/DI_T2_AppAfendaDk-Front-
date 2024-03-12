@@ -29,11 +29,14 @@ public class AppAgendaDK extends Application {
         ObservableList<Provincia> olProv = dataUtil.getOlProvincias();
         dataUtil.obtenerTodasPersonas();
         ObservableList<Persona> olPers = dataUtil.getOlPersonas();
+        dataUtil.obtenerTodosUsuarios();
+        ObservableList<Usuario> olUsr = dataUtil.getOlUsuarios();
 
         // Pasamos los datos obtenidos a la clase controladora de inicio
         inicioController.setDataUtil(dataUtil);
         inicioController.setOlProv(olProv);
         inicioController.setOlPers(olPers);
+        inicioController.setOlUsr(olUsr);
         inicioController.setRootMain(rootMain);
         Scene scene = new Scene(rootMain,700,600);
         primaryStage.setTitle("App Agenda");

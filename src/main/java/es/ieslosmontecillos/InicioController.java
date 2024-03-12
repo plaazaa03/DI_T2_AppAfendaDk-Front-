@@ -20,20 +20,19 @@ import java.util.List;
 
 public class InicioController {
     public View inicio;
-    public AnchorPane login;
     public TextField txtUsuario;
     public TextField txtpassword;
     public Button botonEnter;
     public Button buttonExit;
     private DataUtil dataUtil;
-    private ObservableList olProv;
-    private ObservableList olPers;
+    private ObservableList<Provincia> olProv;
+    private ObservableList<Persona> olPers;
+    private ObservableList<Usuario> olUsr;
     private Pane rootMain = new Pane();
     private Pane getRootMain(){
         return rootMain;
     }
     // Probar el funcionamiento sin bd
-    private List<Usuario> usuarios = new ArrayList<>();
 
     public void setRootMain(Pane rootMain) {
         this.rootMain = rootMain;
@@ -47,7 +46,10 @@ public class InicioController {
     public void setOlPers(ObservableList olPers) {
         this.olPers = olPers;
     }
-/*
+    public void setOlUsr(ObservableList olUsr){
+        this.olUsr = olUsr;
+    }
+    /*
     public void onActionButtonEnter(ActionEvent event) {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/AgendaView.fxml"));
@@ -69,12 +71,6 @@ public class InicioController {
     }
 }*/
 /**/
-
-
-    public InicioController() {
-        // añadir un usuario de prueba
-        usuarios.add(new Usuario("usuario", "usuario"));
-    }
 
     //Al pulsar en Enter
     public void onActionButtonEnter(ActionEvent event) {
@@ -109,8 +105,9 @@ public class InicioController {
 
     // Validar que el usuario y contraseña son correctos
     private boolean validarCredenciales(String nombreUsuario, String contraseña) {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getNombreUsuario().equals(nombreUsuario) && usuario.getContraseña().equals(contraseña)) {
+        olUsr = dataUtil.getOlUsuarios();
+        for (Usuario usr : olUsr) {
+            if (usr.getUsername().equals(nombreUsuario) && usr.getPassword().equals(contraseña)) {
                 return true;
             }
         }
