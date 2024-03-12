@@ -19,15 +19,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InicioController {
+    private DataUtil dataUtil;
+    private ObservableList<Provincia> olProv;
+    private ObservableList<Persona> olPers;
+    private ObservableList<Usuario> olUsr;
+
     public View inicio;
     public TextField txtUsuario;
     public TextField txtpassword;
     public Button botonEnter;
     public Button buttonExit;
-    private DataUtil dataUtil;
-    private ObservableList<Provincia> olProv;
-    private ObservableList<Persona> olPers;
-    private ObservableList<Usuario> olUsr;
+
+
     private Pane rootMain = new Pane();
     private Pane getRootMain(){
         return rootMain;
@@ -49,30 +52,8 @@ public class InicioController {
     public void setOlUsr(ObservableList olUsr){
         this.olUsr = olUsr;
     }
-    /*
-    public void onActionButtonEnter(ActionEvent event) {
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/AgendaView.fxml"));
-            Pane rootAgendaView = fxmlLoader.load();
-            rootMain.getChildren().add(rootAgendaView);
-            AgendaViewController agendaViewController = fxmlLoader.getController();
-            agendaViewController.setDataUtil(dataUtil);
-            agendaViewController.setOlProvincias(olProv);
-            agendaViewController.setOlPersonas(olPers);
-            agendaViewController.cargarTodasPersonas();
-            inicio.setVisible(false);
-        } catch (IOException e) {
-            System.out.println("IOException: " + e);
-        }
-    }
 
-    public void onActionButtonExit(ActionEvent event) {
-
-    }
-}*/
-/**/
-
-    //Al pulsar en Enter
+    //Al pulsar en el Boton Enter
     public void onActionButtonEnter(ActionEvent event) {
         String nombreUsuario = txtUsuario.getText();
         String contraseña = txtpassword.getText();
