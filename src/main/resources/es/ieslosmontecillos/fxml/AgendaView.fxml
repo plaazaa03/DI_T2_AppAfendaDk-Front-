@@ -26,9 +26,9 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="244.0" prefWidth="580.0">
                <children>
-                      <TableView fx:id="tableViewAgenda" prefHeight="44.0" prefWidth="617.0">
+                      <TableView fx:id="tableViewAgenda" prefHeight="134.0" prefWidth="580.0">
                           <columns>
                               <TableColumn fx:id="columnNombre" prefWidth="93.28302001953125" text="Nombre" />
                               <TableColumn fx:id="columnApellidos" prefWidth="114.11322021484375" text="Apellidos" />
@@ -79,17 +79,17 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onActionButtonSuprimir" text="exp HTML">
+            <Button mnemonicParsing="false" text="exp HTML">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onActionButtonSuprimir" text="exp PDF">
+            <Button mnemonicParsing="false" onAction="#onActionButtonexpPDF" text="exp PDF">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onActionButtonSuprimir" text="Ayuda">
+            <Button mnemonicParsing="false" text="Ayuda">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>

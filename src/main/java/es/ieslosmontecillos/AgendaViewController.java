@@ -1,5 +1,6 @@
 package es.ieslosmontecillos;
 
+import com.dansoftware.pdfdisplayer.PDFDisplayer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,10 +8,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +24,10 @@ import java.util.ResourceBundle;
 
 public class AgendaViewController implements Initializable
 {
+    private Pane rootMain = new Pane();
+    private String  backEndService = "localhost";
+    private String  backEndPort = "8080";
+    private String backEndRequestMapping = "api/v1";
     private DataUtil dataUtil;
     private ObservableList<Provincia> olProvincias;
     private ObservableList<Persona> olPersonas;
@@ -213,5 +221,24 @@ public class AgendaViewController implements Initializable
             tableViewAgenda.requestFocus();
         }
 
+    }
+
+    //http://localhost:8080/api/v1/exportPersonas
+    public void onActionButtonexpPDF(ActionEvent event) throws IOException {
+        PDFDisplayer displayer = new PDFDisplayer();
+
+        Stage pdfStage = new Stage();
+        pdfStage.setTitle("Informe de Personas");
+        pdfStage.setScene(new Scene(displayer.toNode()));
+        pdfStage.show();
+
+        try {
+            displayer.loadPDF(new URL("http://" + backEndService + ":" + backEndPort + "/" + backEndRequestMapping + "/exportPersonas"));
+        } catch(IOException ex) {
+            Alert urlAlert = new Alert(Alert.AlertType.ERROR);
+            urlAlert.setTitle("Error");
+            urlAlert.setHeaderText("HA OCURRIDO UN PROBLEMA AL CARGAR LA URL");
+            urlAlert.setContentText("La url del informe no se ha encontrado");
+        }
     }
 }

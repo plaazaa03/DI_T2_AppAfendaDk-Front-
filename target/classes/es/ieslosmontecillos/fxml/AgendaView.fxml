@@ -12,27 +12,33 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
 <!-- -->
-<AnchorPane id="AnchorPane" fx:id="rootAgendaView" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ieslosmontecillos.AgendaViewController">
+
+<AnchorPane id="AnchorPane" fx:id="rootAgendaView" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.ieslosmontecillos.AgendaViewController">
     <children>
-        <VBox prefHeight="400.0" prefWidth="600.0" spacing="20.0">
+        <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0">
             <children>
-                <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
-                    <children>
-                        <Button mnemonicParsing="false" onAction="#onActionButtonNuevo" text="Nuevo" />
-                        <Button mnemonicParsing="false" onAction="#onActionButtonEditar" text="Editar" />
-                        <Button mnemonicParsing="false" onAction="#onActionButtonSuprimir" text="Suprimir" />
-                    </children>
-                </HBox>
-                <TableView fx:id="tableViewAgenda" prefHeight="400.0" prefWidth="600.0">
-                    <columns>
-                        <TableColumn fx:id="columnNombre" prefWidth="93.28302001953125" text="Nombre" />
-                        <TableColumn fx:id="columnApellidos" prefWidth="114.11322021484375" text="Apellidos" />
-                        <TableColumn fx:id="columnEmail" prefWidth="223.6981201171875" text="E-Mail" />
-                        <TableColumn fx:id="columnProvincia" prefWidth="167.54721069335938" text="Provincia" />
-                    </columns>
-                </TableView>
-                <GridPane prefHeight="203.0" prefWidth="600.0" vgap="25.0">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Agenda Curso 23-24" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <HBox prefHeight="244.0" prefWidth="580.0">
+               <children>
+                      <TableView fx:id="tableViewAgenda" prefHeight="134.0" prefWidth="580.0">
+                          <columns>
+                              <TableColumn fx:id="columnNombre" prefWidth="93.28302001953125" text="Nombre" />
+                              <TableColumn fx:id="columnApellidos" prefWidth="114.11322021484375" text="Apellidos" />
+                              <TableColumn fx:id="columnEmail" prefWidth="223.6981201171875" text="E-Mail" />
+                              <TableColumn fx:id="columnProvincia" prefWidth="167.54721069335938" text="Provincia" />
+                          </columns>
+                      </TableView>
+               </children>
+            </HBox>
+                <GridPane prefHeight="136.0" prefWidth="580.0" vgap="25.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -55,5 +61,40 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
         </VBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" />
+      <VBox layoutX="626.0" layoutY="65.0" prefHeight="270.0" prefWidth="79.0">
+         <children>
+                  <Button mnemonicParsing="false" onAction="#onActionButtonNuevo" text="Nuevo">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Button>
+                  <Button mnemonicParsing="false" onAction="#onActionButtonEditar" text="Editar">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Button>
+                  <Button mnemonicParsing="false" onAction="#onActionButtonSuprimir" text="Suprimir">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" text="exp HTML">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onActionButtonexpPDF" text="exp PDF">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" text="Ayuda">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>
